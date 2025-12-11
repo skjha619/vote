@@ -24,6 +24,14 @@ jobs:
       - name: image build
         run: |
              echo "comm id: $shortCommitId" ;docker build  -t ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$SHORT_COMMIT_ID .
+      - name: Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ secrets.ACR_LOGIN_SERVER }}/vote:$SHORT_COMMIT_ID
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: '1'
       - name: image push to ACR.
         run: docker push ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$SHORT_COMMIT_ID
       - name: Load kubeconfig
