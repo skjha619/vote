@@ -2,7 +2,6 @@ name: vote-app-pipeline
 on: push
 env:
     serviceName: vote
-    shortCommitId: dummy123
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,7 +11,7 @@ jobs:
         run: |
              commitId=$(echo ${{ github.sha }})
              shortCommitId=${commitId:0:7}
-             echo $shortCommitId
+             echo "SHORT_COMMIT_ID=$shortCommitId" >> $GITHUB_ENV
       - name: ACR login
         uses: docker/login-action@v3
         with:
@@ -21,6 +20,6 @@ jobs:
             password: ${{secrets.ACR_PASSWORD}}
       - name: image build
         run: |
-             echo "comm id: $shortCommitId" ;docker build  -t ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$shortCommitId .
+             echo "comm id: $shortCommitId" ;docker build  -t ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$SHORT_COMMIT_ID .
       - name: image push to ACR.
-        run: docker push ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$shortCommitId
+        run: docker push ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$SHORT_COMMIT_ID
