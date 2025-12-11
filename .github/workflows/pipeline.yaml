@@ -32,6 +32,6 @@ jobs:
           echo "$KUBE_CONFIG_DATA"|base64 --decode > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
       - name: verifying cluster access
-        run: kubectll get po
+        run: kubectl get po
 
 
