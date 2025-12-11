@@ -1,0 +1,9 @@
+name: vote-app-pipeline
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3   # important to checkout code
+      - name: printing commit id
+        run: echo "${{ github.sha }}"
