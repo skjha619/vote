@@ -19,6 +19,6 @@ jobs:
             username: ${{secrets.ACR_USER_NAME}}
             password: ${{secrets.ACR_PASSWORD}}
       - name: image build
-        run: docker build . -t ${{secrets.ACR_LOGIN_SERVER}}/serviceName:$shortCommitId
+        run: docker build . -t ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$shortCommitId
       - name: image push to ACR.
-        run: docker push ${{secrets.ACR_LOGIN_SERVER}}/serviceName:$shortCommitId
+        run: docker push ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$shortCommitId
