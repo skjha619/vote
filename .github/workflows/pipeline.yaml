@@ -7,5 +7,6 @@ jobs:
       - uses: actions/checkout@v3   # important to checkout code
       - name: printing commit id
         run: |
-             commitid=$(echo ${{ github.sha }})
-             echo $commitid
+             commitId=$(echo ${{ github.sha }})
+             shortCommitId=${commitId:0:7}
+             echo $shortCommitId
