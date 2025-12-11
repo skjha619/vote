@@ -23,3 +23,14 @@ jobs:
              echo "comm id: $shortCommitId" ;docker build  -t ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$SHORT_COMMIT_ID .
       - name: image push to ACR.
         run: docker push ${{secrets.ACR_LOGIN_SERVER}}/$serviceName:$SHORT_COMMIT_ID
+      - name: Load kubeconfig
+        env:
+            KUBE_CONFIG_DATA: ${{secrets.KUBE_CONFIG_DATA}}
+        run: |
+          mkdir -p $HOME/.kube
+          echo "$KUBE_CONFIG_DATA"|base64 --decode > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+      - name: verifying cluster access
+        run: kubectll get po
+
+
