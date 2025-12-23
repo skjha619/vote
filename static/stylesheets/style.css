@@ -28,11 +28,11 @@ button i{
 }
 
 button.a{
-  background-color: rgb(233, 248, 26);
+  background-color: rgb(233, 248, 26) /*#f81ac8*/;
 }
 
 button.b{
-  background-color: #f8e91a;
+  background-color: /*#f8e91a*/ #f81ac8*;
 }
 
 #tip{
